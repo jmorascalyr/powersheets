@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <base target="_top">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    </head>
+    <body>
+        <div class="container">
+            <div class="row">
+                <div class="col-6">
+                    <form id="myForm" onsubmit="handleFormSubmit(this)">
+                        <p class="h4 mb-4 text-center">Execute Query</p>
+ 
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="query">Query</label>
+                                <input type="text" class="form-control" id="query" name="query" placeholder="Query">
+                            </div>
+                      
+                        </div>
+ 
+                        
+ 
+                        
+ 
+                        <button type="submit" class="btn btn-primary btn-block">Submit</button>
+                    </form>
+                    <div id="output"></div>
+                </div>
+            </div>      
+        </div>
+    </body>
+</html>
+
+
+<script>
+  // Prevent forms from submitting.
+  function preventFormSubmit() {
+    var forms = document.querySelectorAll('form');
+    for (var i = 0; i < forms.length; i++) {
+      forms[i].addEventListener('submit', function(event) {
+      event.preventDefault();
+      });
+    }
+  }
+  window.addEventListener('load', preventFormSubmit);    
+       
+       
+  function handleFormSubmit(formObject) {
+    google.script.run.processQuery(formObject);
+    document.getElementById("myForm").reset();
+  }
+</script>
