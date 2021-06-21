@@ -5,26 +5,55 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     </head>
     <body>
+      <br>
         <div class="container">
             <div class="row">
-                <div class="col-6">
+                <div class="col-md-12">
                     <form id="myForm" onsubmit="handleFormSubmit(this)">
                         <p class="h4 mb-4 text-center">Execute Query</p>
  
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
+                        <div class="row">
+                            <div class="col-25">
                                 <label for="query">Query</label>
-                                <input type="text" class="form-control" id="query" name="query" placeholder="Query">
+                            </div>
+                            <!-- 
+                            <div class="col-75">
+                                <input type="textarea" class="css-doodle" id="query" name="query" style="height:200px">
+                            </div>
+                            -->
+                            <div class="col-75">
+                                <textarea id="query" name="query"  style="height:200px"></textarea>
+                            </div>
+                        </div>
+                        
+
+      
+  
+
+                        <div class="row">
+                            <div class="col-25">
+                                <label for="start">Start Time</label>
+                                <input type="datetime" class="form-control" id="start" name="start" placeholder="4h">
+                            </div>
+                      
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-25">
+                                <label for="end">End Time</label>
+                                <input type="datetime" class="form-control" id="end" name="end" placeholder="0h">
                             </div>
                       
                         </div>
  
                         
  
-                        
+                        <br>
  
-                        <button type="submit" class="btn btn-primary btn-block">Submit</button>
+                        <button type="submit" class="btn btn-primary btn-block">Run</button>
                     </form>
+                    
+                    <br>
                     <div id="output"></div>
                 </div>
             </div>      
@@ -32,6 +61,77 @@
     </body>
 </html>
 
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+div {
+  max-width: 340px;
+  min-width: 100px;
+  word-wrap: break-word;
+}
+input[type=text], select, textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: vertical;
+}
+
+label {
+  padding: 12px 12px 12px 0;
+  display: inline-block;
+}
+
+input[type=submit] {
+  background-color: #04AA6D;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  float: right;
+}
+
+input[type=submit]:hover {
+  background-color: #45a049;
+}
+
+.container {
+  border-radius: 5px;
+  background-color: #ffffff;
+  padding: 20px;
+}
+
+.col-25 {
+  float: left;
+  width: 25%;
+  margin-top: 6px;
+}
+
+.col-75 {
+  float: left;
+  width: 75%;
+  margin-top: 6px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 600px) {
+  .col-25, .col-75, input[type=submit] {
+    width: 100%;
+    margin-top: 0;
+  }
+}
+</style>
 
 <script>
   // Prevent forms from submitting.
@@ -43,11 +143,35 @@
       });
     }
   }
-  window.addEventListener('load', preventFormSubmit);    
+    
        
-       
+  function expandTextarea(id) {
+    document.getElementById(id).addEventListener('keyup', function() {
+        this.style.overflow = 'hidden';
+        this.style.height = 0;
+        this.style.height = this.scrollHeight + 'px';
+    }, false);
+}
+
+   
   function handleFormSubmit(formObject) {
-    google.script.run.processQuery(formObject);
-    document.getElementById("myForm").reset();
+    processing();
+    google.script.run.withFailureHandler(onFail).withSuccessHandler(onSuccess).processQuery(formObject);
+  //  document.getElementById("myForm").reset();
   }
+  function processing() {
+        var div = document.getElementById('output');
+        div.innerHTML = "<h3>Processing</h3><br><p>Communicating with the server...</p>";      
+      }
+  function onSuccess(response) {
+        var div = document.getElementById('output');
+        div.innerHTML = "<h3>Processed Powerquery</h3><br><p>Powerquery was processed successfully</p>" + "<br>" + "<p>" + response + "</p>";
+      }
+  function onFail(response) {
+        var div = document.getElementById('output');
+        div.innerHTML = "<h3>Processed Powerquery</h3><br><p style=\"color:red;\">There was an issue</p>" + "<br>" + "<p>" + response + "</p>";
+      }
+window.addEventListener('load', preventFormSubmit);  
+expandTextarea('txtarea');  
+
 </script>
