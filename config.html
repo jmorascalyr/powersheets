@@ -1,39 +1,39 @@
 <!DOCTYPE html>
-<html>
     <head>
         <base target="_top">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     </head>
     <body>
+      <br>
         <div class="container">
             <div class="row">
-                <div class="col-6">
-                    <form id="myForm" onsubmit="handleFormSubmit(this)">
+                <div class="col-md-12">
+
+                  <form id="myForm" onsubmit="handleFormSubmit(this)">
                         <p class="h4 mb-4 text-center">Scalyr Config Options</p>
  
                         <div class="form-row">
-                            <div class="form-group col-md-6">
+                            <div class="form-control">
                                 <label for="api_key">API Key</label>
                                 <input type="text" class="form-control" id="api_key" name="api_key" placeholder="Api Key">
                             </div>
-                            <div class="form-group col-md-6">
+                            <div class="form-control">
                                 <label for="scalyr_server">Scalyr Server</label>
-                                <input type="text" class="form-control" id="scalyr_server" name="scalyr_server" placeholder="scalyr_server">
+                                <input type="text" class="form-control" id="scalyr_server" name="scalyr_server" placeholder="https://app.scalyr.com">
                             </div>
                         </div>
- 
-                      
 
- 
                         <button type="submit" class="btn btn-primary btn-block">Submit</button>
+
                     </form>
+                    <br>
+                    <br>
                     <div id="output"></div>
                 </div>
             </div>      
         </div>
     </body>
 </html>
-
 
 <script>
   // Prevent forms from submitting.
