@@ -10,6 +10,9 @@ If you would like to beta test this, you can add the code directly to a google s
 2. Tools > Script Editor
 3. Copy Code.gs, index.html, config.html to your script editor and Deploy as webapp.
 
+<img width="1537" alt="Pasted_Image_6_21_21__4_19_PM" src="https://user-images.githubusercontent.com/42879226/122839290-9a4ede80-d2ac-11eb-8b6e-136f13949883.png">
+
+
 To use: 
 
 Configure 
